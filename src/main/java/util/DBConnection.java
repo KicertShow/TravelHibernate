@@ -9,7 +9,7 @@ import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 public final class DBConnection {
 	
 	private static final String USER = "sa";
-	private static final String PASSWORD = "manager";
+	private static final String PASSWORD = "sa123456";
 	private static final String DB_NAME = "travel_web";
 	private static final String JDBC_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 	private static final String DB_URL = "jdbc:sqlserver://localhost:1433;databaseName=" + DB_NAME;
