@@ -36,18 +36,18 @@ public class Hotel_Servlet extends HttpServlet {
 				processQuery(req, res, daoimpl);
 				break;
 			case "insert":
-				Insert(req, res, funDAO);
+				Insert(req, res, daoimpl);
 				break;
 			case "update":
-				update(req, res, funDAO);
+				update(req, res, daoimpl);
 				break;
 			case "edit":
-				showEditForm(req, res, funDAO);
+				showEditForm(req, res, daoimpl);
 				break;
 			case "new":
 				showNewForm(req, res);
 			case "delete":
-				delete(req, res, funDAO);
+				delete(req, res, daoimpl);
 			default:
 				always(req,res,daoimpl);
 				break;
@@ -83,7 +83,7 @@ public class Hotel_Servlet extends HttpServlet {
 		System.out.println("已成功跳轉");
 	}
 
-	private void Insert(HttpServletRequest request, HttpServletResponse response, Fun_HotelDAO funDAO)
+	private void Insert(HttpServletRequest request, HttpServletResponse response, HotelServiceImpl daoimpl)
 			throws SQLException, IOException, ServletException {
 		String hotel_name = request.getParameter("hotel_name");
 		int price = Integer.parseInt(request.getParameter("price"));
@@ -92,7 +92,7 @@ public class Hotel_Servlet extends HttpServlet {
 		String status = request.getParameter("status");
 		String roomtype = request.getParameter("roomtype");
 		Hotel hotel = new Hotel(hotel_name, price, boss_name, phone, status, roomtype);
-		funDAO.insert(hotel);
+		daoimpl.save(hotel);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("Hotel_Servlet?action");
 		requestDispatcher.forward(request, response);
 		int i =0;
@@ -103,10 +103,10 @@ public class Hotel_Servlet extends HttpServlet {
 
 	}
 	
-	private void delete (HttpServletRequest request, HttpServletResponse response, Fun_HotelDAO funDAO)
+	private void delete (HttpServletRequest request, HttpServletResponse response,HotelServiceImpl daoimpl)
 			throws SQLException, IOException, ServletException{
 		int id = Integer.parseInt(request.getParameter("id"));
-		funDAO.delete(id);
+		daoimpl.delete(id);
 		request.getRequestDispatcher("Hotel_Servlet?action");
 		
 		int i =0;
@@ -117,7 +117,7 @@ public class Hotel_Servlet extends HttpServlet {
 		
 	}
 	
-	private void update (HttpServletRequest request, HttpServletResponse response, Fun_HotelDAO funDAO) throws ServletException, IOException {
+	private void update (HttpServletRequest request, HttpServletResponse response,HotelServiceImpl daoimpl) throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
 		String hotel_name = request.getParameter("hotel_name");
 		int price = Integer.parseInt(request.getParameter("price"));
@@ -126,7 +126,7 @@ public class Hotel_Servlet extends HttpServlet {
 		String status = request.getParameter("status");
 		String roomtype = request.getParameter("roomtype");
 		Hotel hotel = new Hotel(id, hotel_name, price, boss_name, phone, status, roomtype);
-		funDAO.update(hotel);
+		daoimpl.update(hotel);
 		request.getRequestDispatcher("Hotel_Servlet?action").forward(request, response);
 		int i =0;
 		for(i=0; i<5; i++) {
@@ -135,11 +135,11 @@ public class Hotel_Servlet extends HttpServlet {
 	
 	}
 	
-	private void showEditForm(HttpServletRequest request, HttpServletResponse response,Fun_HotelDAO funDAO)
+	private void showEditForm(HttpServletRequest request, HttpServletResponse response,HotelServiceImpl daoimpl)
 			throws SQLException, ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
 		System.out.println(id);
-		Hotel edit = funDAO.findOrderByid(id);
+		Hotel edit = daoimpl.findById(id);
 		RequestDispatcher rd = request.getRequestDispatcher("/user-form-edit.jsp");
 		request.setAttribute("Hotel", edit);
 		rd.forward(request, response);

@@ -26,7 +26,7 @@ public class HotelServiceDao_Hibernate implements HotelDao{
 		Hotel hotel = null;
 		Session session = factory.getCurrentSession();
 		Integer ipk = Integer.valueOf(id);
-		hotel = session.get(Hotel.class, id);
+		hotel = session.get(Hotel.class, ipk);
 		return hotel;
 	}
 
