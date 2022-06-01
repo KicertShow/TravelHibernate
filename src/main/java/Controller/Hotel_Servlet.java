@@ -12,8 +12,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import javax.sql.DataSource;
 import javax.swing.text.html.HTML;
-
-import dao.dao.Fun_HotelDAO;
+import dao.dao.impl.Fun_HotelDAO;
+import dao.service.HotelServiceImpl;
 import model.Hotel;
 
 @WebServlet("/Hotel_Servlet")
@@ -21,12 +21,11 @@ public class Hotel_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public void init() throws ServletException {
-		Fun_HotelDAO fun_HotelDAO = new Fun_HotelDAO();
-		int i =0;
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		Fun_HotelDAO funDAO = new Fun_HotelDAO();
+		HotelServiceImpl daoimpl = new HotelServiceImpl();
 		res.setCharacterEncoding("UTF-8");
 		req.setCharacterEncoding("UTF-8");
 		String action=req.getParameter("action");
@@ -34,7 +33,7 @@ public class Hotel_Servlet extends HttpServlet {
 		try {
 			switch (action) {
 			case "query":
-				processQuery(req, res, funDAO);
+				processQuery(req, res, daoimpl);
 				break;
 			case "insert":
 				Insert(req, res, funDAO);
@@ -50,7 +49,7 @@ public class Hotel_Servlet extends HttpServlet {
 			case "delete":
 				delete(req, res, funDAO);
 			default:
-				always(req,res,funDAO);
+				always(req,res,daoimpl);
 				break;
 			}
 		} catch (Exception e) {
@@ -65,9 +64,9 @@ public class Hotel_Servlet extends HttpServlet {
 		doGet(request, response);
 	}
 
-	private void processQuery(HttpServletRequest request, HttpServletResponse response, Fun_HotelDAO funDAO)
+	private void processQuery(HttpServletRequest request, HttpServletResponse response ,HotelServiceImpl daoimpl)
 			throws SQLException, IOException, ServletException {
-		List<Hotel> hotels = funDAO.selectAll();
+		List<Hotel> hotels = daoimpl.findAll();
 		request.setAttribute("Hotel", hotels);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/user-list.jsp");
 		requestDispatcher.forward(request, response);
@@ -155,9 +154,9 @@ public class Hotel_Servlet extends HttpServlet {
 	}
 
 	
-	public void always (HttpServletRequest req,HttpServletResponse res,Fun_HotelDAO funDAO)throws IOException,ServletException {
-		List<Hotel> always = funDAO.selectAll();
-		req.setAttribute("Hotel", always);
+	public void always (HttpServletRequest req,HttpServletResponse res,HotelServiceImpl daoimpl)throws IOException,ServletException {
+		List<Hotel> finall = daoimpl.findAll();
+		req.setAttribute("Hotel", finall);
 		RequestDispatcher transer = req.getRequestDispatcher("user-list.jsp");
 		transer.forward(req, res);
 		int i =0;
