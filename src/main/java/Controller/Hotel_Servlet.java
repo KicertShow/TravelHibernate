@@ -1,22 +1,31 @@
 package Controller;
 
-import java.io.*;
-import java.nio.charset.Charset;
-import java.sql.*;
-import java.util.Iterator;
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
-import javax.naming.Context;
-import javax.servlet.*;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
-import javax.sql.DataSource;
-import javax.swing.text.html.HTML;
-import dao.dao.impl.Fun_HotelDAO;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+
+//import dao.dao.impl.Fun_HotelDAO;
 import dao.service.HotelServiceImpl;
 import model.Hotel;
 
 @WebServlet("/Hotel_Servlet")
+	
+
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 定義檔案暫存門檻
+maxFileSize = 1024 * 1024 * 10, // 允許單個檔案最大大小；當上傳檔案大小超過定義會丟出 exception (IllegalStateException)
+maxRequestSize = 1024 * 1024 * 50 // 允許整個 multipart/form-data 要求最大大小；當上傳檔案大小超過定義會丟出 exception (IllegalStateException)
+)
 public class Hotel_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -24,7 +33,7 @@ public class Hotel_Servlet extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		Fun_HotelDAO funDAO = new Fun_HotelDAO();
+//		Fun_HotelDAO funDAO = new Fun_HotelDAO();
 		HotelServiceImpl daoimpl = new HotelServiceImpl();
 		res.setCharacterEncoding("UTF-8");
 		req.setCharacterEncoding("UTF-8");
@@ -66,7 +75,10 @@ public class Hotel_Servlet extends HttpServlet {
 
 	private void processQuery(HttpServletRequest request, HttpServletResponse response ,HotelServiceImpl daoimpl)
 			throws SQLException, IOException, ServletException {
+		response.setContentType("image/gif");
+		ServletOutputStream out = response.getOutputStream();
 		List<Hotel> hotels = daoimpl.findAll();
+		
 		request.setAttribute("Hotel", hotels);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/user-list.jsp");
 		requestDispatcher.forward(request, response);
@@ -86,12 +98,17 @@ public class Hotel_Servlet extends HttpServlet {
 	private void Insert(HttpServletRequest request, HttpServletResponse response, HotelServiceImpl daoimpl)
 			throws SQLException, IOException, ServletException {
 		String hotel_name = request.getParameter("hotel_name");
-		int price = Integer.parseInt(request.getParameter("price"));
+		Integer price = Integer.parseInt(request.getParameter("price"));
 		String boss_name = request.getParameter("boss_name");
 		String phone =  request.getParameter("phone") ;
 		String status = request.getParameter("status");
 		String roomtype = request.getParameter("roomtype");
-		Hotel hotel = new Hotel(hotel_name, price, boss_name, phone, status, roomtype);
+		Part part = request.getPart("picture");
+		
+		BufferedInputStream bis = new BufferedInputStream(part.getInputStream());
+		byte[] pic = new byte[bis.available()];
+		bis.read();
+		Hotel hotel = new Hotel(hotel_name, price, boss_name, phone, status, roomtype, pic);
 		daoimpl.save(hotel);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("Hotel_Servlet?action");
 		requestDispatcher.forward(request, response);
@@ -125,7 +142,11 @@ public class Hotel_Servlet extends HttpServlet {
 		String phone = request.getParameter("phone");
 		String status = request.getParameter("status");
 		String roomtype = request.getParameter("roomtype");
-		Hotel hotel = new Hotel(id, hotel_name, price, boss_name, phone, status, roomtype);
+		Part part = request.getPart("picture");
+		BufferedInputStream bis = new BufferedInputStream(part.getInputStream());
+		byte[] pic = new byte[bis.available()];
+		
+		Hotel hotel =  new Hotel(hotel_name, price, boss_name, phone, status, roomtype, pic);
 		daoimpl.update(hotel);
 		request.getRequestDispatcher("Hotel_Servlet?action").forward(request, response);
 		int i =0;

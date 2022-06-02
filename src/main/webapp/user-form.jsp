@@ -66,7 +66,7 @@
 				
 				<%if (hotel == null) {%>
 				
-					<form action="Hotel_Servlet" method="post">
+					<form action="Hotel_Servlet" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="action" value="insert">
 					
 				<% } %> 
@@ -133,7 +133,12 @@ function my_key(e){
 				<fieldset class="form-group">
 					<label>電話</label> <input type="text"
 						value="<c:out value='${hotel.phone}' />" class="form-control"
-						name="phone"onkeypress="return my_key(event)">
+						name="phone" onkeypress="return my_key(event)">
+				</fieldset>
+				<fieldset class="form-group">
+					<label>照片</label> <input type="file" 
+						value="<c:out value='${hotel.picture}' />" class="form-control"
+						name="picture">
 				</fieldset>
 				<!-- 
 				<fieldset class="form-group">

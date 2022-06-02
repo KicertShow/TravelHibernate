@@ -1,3 +1,4 @@
+<%@page import="model.Hotel"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -68,7 +69,8 @@
 						<th>業主名稱</th>
 						<th>電話</th> 
 						<th>狀態</th> 
-						<th>房型</th>  
+						<th>房型</th> 
+						<th>照片</th> 
 						<th>刪除</th>
 						<th>編輯</th>
 						
@@ -88,6 +90,10 @@
 							<td><c:out value="${hotel.phone}" /></td>
 							<td><c:out value="${hotel.status}" /></td>
 							<td><c:out value="${hotel.roomtype}" /></td>
+							
+							<td><img src="Hotel_Servlet?action=query"><c:out value="${hotel.picture}" /></td>
+							
+							
 							<td>
 							  <button  class="btn btn-sm btn-danger" type="button"  onclick="bom('${hotel.id}');" id="delete1" ><i class="bi bi-trash-fill"></i>刪除</button>
 							<!--  
