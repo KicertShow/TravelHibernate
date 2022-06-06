@@ -60,18 +60,13 @@
 					</h2>
 				</caption>
 				
-				<%if (hotel != null) {%>
+				
 			 
-					<form action="Hotel_Servlet" method="post">
+					<form action="Hotel_Servlet" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="action" value="update">
-				<% } %>  
 				
-				<%if (hotel == null) {%>
 				
-					<form action="Hotel_Servlet" method="post">
-					<input type="hidden" name="action" value="insert">
-					
-				<% } %> 
+			
 				<!-- 
 				if (hotel != null) {
 					<input type="hidden" name="id"
@@ -136,6 +131,11 @@ function my_key(e){
 						name="phone"onkeypress="return my_key(event)">
 				</fieldset>
 				
+				<fieldset class="form-group">
+					<label>照片</label> <input type="file" 
+						value="" class="form-control" 
+						name="picture">
+				</fieldset>
 				<!-- -------------------------------------------------------------以下修改 -->
 				<label>狀態</label>
 				<fieldset class="form-group">

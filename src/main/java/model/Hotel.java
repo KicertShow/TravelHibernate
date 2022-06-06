@@ -27,6 +27,18 @@ public class Hotel {
 	@Lob
 	private byte[] picture;
 	
+	public Hotel(Integer id, String hotel_name, Integer price, String boss_name, String phone, String status,
+			String roomtype, byte[] picture) {
+		super();
+		this.id = id;
+		this.hotel_name = hotel_name;
+		this.price = price;
+		this.boss_name = boss_name;
+		this.phone = phone;
+		this.status = status;
+		this.roomtype = roomtype;
+		this.picture = picture;
+	}
 	public Hotel( String hotel_name, Integer price, String boss_name, String phone, String status,
 			String roomtype, byte[] picture) {
 		super();

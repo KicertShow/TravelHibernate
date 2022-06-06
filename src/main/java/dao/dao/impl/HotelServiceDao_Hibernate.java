@@ -38,7 +38,7 @@ public class HotelServiceDao_Hibernate implements HotelDao{
 	@Override
 	public void update(Hotel hol) {
 		Session session = factory.getCurrentSession();
-		session.saveOrUpdate("Hotel",hol);
+		session.update("Hotel",hol);
 	}
 
 	@Override

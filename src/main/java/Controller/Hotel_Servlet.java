@@ -162,18 +162,19 @@ public class Hotel_Servlet extends HttpServlet {
 	}
 	
 	private void update (HttpServletRequest request, HttpServletResponse response,HotelServiceImpl daoimpl) throws ServletException, IOException {
-		int id = Integer.parseInt(request.getParameter("id"));
+		Integer id = Integer.parseInt(request.getParameter("id"));
 		String hotel_name = request.getParameter("hotel_name");
-		int price = Integer.parseInt(request.getParameter("price"));
-		String boss_name =request.getParameter("boss_name");
-		String phone = request.getParameter("phone");
+		Integer price = Integer.parseInt(request.getParameter("price"));
+		String boss_name = request.getParameter("boss_name");
+		String phone =  request.getParameter("phone") ;
 		String status = request.getParameter("status");
 		String roomtype = request.getParameter("roomtype");
 		Part part = request.getPart("picture");
 		BufferedInputStream bis = new BufferedInputStream(part.getInputStream());
 		byte[] pic = new byte[bis.available()];
+		bis.read(pic);
 		
-		Hotel hotel =  new Hotel(hotel_name, price, boss_name, phone, status, roomtype, pic);
+		Hotel hotel =  new Hotel(id, hotel_name, price, boss_name, phone, status, roomtype, pic);
 		daoimpl.update(hotel);
 		request.getRequestDispatcher("Hotel_Servlet?action").forward(request, response);
 		int i =0;
