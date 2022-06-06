@@ -20,7 +20,6 @@ import dao.service.HotelServiceImpl;
 import model.Hotel;
 
 @WebServlet("/Hotel_Servlet")
-	
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 定義檔案暫存門檻
 maxFileSize = 1024 * 1024 * 10, // 允許單個檔案最大大小；當上傳檔案大小超過定義會丟出 exception (IllegalStateException)
@@ -92,7 +91,7 @@ public class Hotel_Servlet extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("/user-form.jsp");
 		
 		rd.forward(request, response);
-		System.out.println("已成功跳轉");
+		System.out.println("已成功跳轉到新增頁面");
 	}
 
 	private void Insert(HttpServletRequest request, HttpServletResponse response, HotelServiceImpl daoimpl)

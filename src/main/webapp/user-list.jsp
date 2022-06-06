@@ -91,7 +91,8 @@
 							<td><c:out value="${hotel.status}" /></td>
 							<td><c:out value="${hotel.roomtype}" /></td>
 							
-							<td><img src="Hotel_Servlet?action=query"><c:out value="${hotel.picture}" /></td>
+							
+							<td><img src="data:image/jpg:base64,"><c:out value="${hotel.picture}" /></td>
 							
 							
 							<td>
@@ -136,6 +137,7 @@
 function new1(){
 	 window.location.href ="<%=path%>/Hotel_Servlet?action=new"
 	}
+// 	this is can't code  "new" >>to new"
 function edit(id){
 	 window.location.href ="<%=path%>/Hotel_Servlet?action=edit&id="+id
 	}
