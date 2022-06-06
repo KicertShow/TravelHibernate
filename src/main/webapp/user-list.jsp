@@ -92,7 +92,7 @@
 							<td><c:out value="${hotel.roomtype}" /></td>
 							
 							
-							<td><img src="data:image/jpg:base64,"><c:out value="${hotel.picture}" /></td>
+							<td><img src="/travelWebFinalVersion/Picture?id=${hotel.id}" width="100px"></td>
 							
 							
 							<td>

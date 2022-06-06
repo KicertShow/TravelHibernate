@@ -17,9 +17,10 @@ import javax.servlet.http.Part;
 
 //import dao.dao.impl.Fun_HotelDAO;
 import dao.service.HotelServiceImpl;
+
 import model.Hotel;
 
-@WebServlet("/Hotel_Servlet")
+@WebServlet(urlPatterns = {"/Hotel_Servlet"})
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 定義檔案暫存門檻
 maxFileSize = 1024 * 1024 * 10, // 允許單個檔案最大大小；當上傳檔案大小超過定義會丟出 exception (IllegalStateException)
@@ -39,6 +40,7 @@ public class Hotel_Servlet extends HttpServlet {
 		String action=req.getParameter("action");
 
 		try {
+			
 			switch (action) {
 			case "query":
 				processQuery(req, res, daoimpl);
@@ -54,8 +56,10 @@ public class Hotel_Servlet extends HttpServlet {
 				break;
 			case "new":
 				showNewForm(req, res);
+				break;
 			case "delete":
 				delete(req, res, daoimpl);
+				
 			default:
 				always(req,res,daoimpl);
 				break;
@@ -63,14 +67,32 @@ public class Hotel_Servlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+//		 if (req.getServletPath().equals("/picture")) {
+//			try {
+//				processPicture(req, res);
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} catch (ServletException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
+		
+		
 		doGet(request, response);
 	}
+	
 
 	private void processQuery(HttpServletRequest request, HttpServletResponse response ,HotelServiceImpl daoimpl)
 			throws SQLException, IOException, ServletException {
@@ -102,11 +124,17 @@ public class Hotel_Servlet extends HttpServlet {
 		String phone =  request.getParameter("phone") ;
 		String status = request.getParameter("status");
 		String roomtype = request.getParameter("roomtype");
-		Part part = request.getPart("picture");
+//		Part part = request.getPart("picture");
+//		
+//		BufferedInputStream bis = new BufferedInputStream(part.getInputStream());
+//		byte[] pic = new byte[bis.available()];
+//		bis.read();
 		
+		Part part = request.getPart("picture");
 		BufferedInputStream bis = new BufferedInputStream(part.getInputStream());
 		byte[] pic = new byte[bis.available()];
-		bis.read();
+		bis.read(pic);
+		
 		Hotel hotel = new Hotel(hotel_name, price, boss_name, phone, status, roomtype, pic);
 		daoimpl.save(hotel);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("Hotel_Servlet?action");

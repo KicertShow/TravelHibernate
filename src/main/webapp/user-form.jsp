@@ -58,18 +58,14 @@
 					</h2>
 				</caption>
 				
-				<%if (hotel != null) {%>
-			 
-					<form action="Hotel_Servlet" method="post">
-					<input type="hidden" name="action" value="update">
-				<% } %>  
 				
-				<%if (hotel == null) {%>
 				
+			
+					
 					<form action="Hotel_Servlet" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="action" value="insert">
-					
-				<% } %> 
+				
+			
 				<!-- 
 				if (hotel != null) {
 					<input type="hidden" name="id"
@@ -77,10 +73,7 @@
 				 } 
 				 -->
 			
-					<c:if test="${order != null}">
-							<input type="hidden" name="od_id"
-								value="<c:out value='${order.od_id}' />" />
-						</c:if>
+				
 						
 			
 				 
@@ -137,7 +130,7 @@ function my_key(e){
 				</fieldset>
 				<fieldset class="form-group">
 					<label>照片</label> <input type="file" 
-						value="<c:out value='${hotel.picture}' />" class="form-control"
+						value="" class="form-control" 
 						name="picture">
 				</fieldset>
 				<!-- 
