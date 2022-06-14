@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 //import dao.dao.impl.Fun_HotelDAO;
 import dao.service.HotelServiceImpl;
 
@@ -26,6 +29,9 @@ import model.Hotel;
 maxFileSize = 1024 * 1024 * 10, // 允許單個檔案最大大小；當上傳檔案大小超過定義會丟出 exception (IllegalStateException)
 maxRequestSize = 1024 * 1024 * 50 // 允許整個 multipart/form-data 要求最大大小；當上傳檔案大小超過定義會丟出 exception (IllegalStateException)
 )
+
+
+
 public class Hotel_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
