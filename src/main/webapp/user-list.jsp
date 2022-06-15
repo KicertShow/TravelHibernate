@@ -52,7 +52,7 @@
 				
 <!-- 		    <button type="button" class="btn btn-sm btn-danger"  onclick="query()"><i class="bi bi-search"></i>查詢</button> -->
 		   
-				<form action="Hotel_Servlet" method="POST">
+				<form action="Hotel.Query" method="POST">
 					<input type="hidden" name="query" value="query">
 					<input type="submit"  class="btn btn-success"  
 					value="query">
@@ -98,9 +98,9 @@
 							<td>
 <%-- 							  <button  class="btn btn-sm btn-danger" type="button"  onclick="bom('${hotel.id}');" id="delete1" ><i class="bi bi-trash-fill"></i>刪除</button> --%>
 							 
-							<form action="Hotel_Servlet" method="POST" name="delete">
-								<input type="hidden" name="action" value="delete">
-								<input type="hidden" name="id" value="<c:out value='${hotel.id}' />">
+							<form action="Hotel.Delete" method="POST" name="delete">
+<!-- 							<input type="hidden" name="action" value="delete"> -->
+								<input type="hidden" name="DeleteId" value="<c:out value='${hotel.id}' />">
 								<input type="submit" class="btn btn-sm btn-danger" value="刪除">
 							</form>
 						
@@ -109,9 +109,9 @@
 							<td>
 <%-- 							<button  class="btn btn-success" type="button"  onclick="edit('${hotel.id}');" id="edit" ><i class="bi bi-credit-card-2-front"></i>編輯</button> --%>
 							 
-							<form action="Hotel_Servlet" method="POST" name="edit">
-							<input type="hidden" name="action" value="edit">
-							<input type="hidden" name="id" value="<c:out value='${hotel.id}' />">
+							<form action="shoeEditForm" method="POST" name="edit">
+							<input type="hidden" name="showEditForm" value="edit">
+							<input type="hidden" name="UpdateId" value="<c:out value='${hotel.id}' />">
 							<input type="submit" class="btn btn-success" value="修改">
 							
 							</form>

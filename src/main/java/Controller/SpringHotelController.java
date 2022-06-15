@@ -32,6 +32,45 @@ public class SpringHotelController {
 		
 		System.out.println("This is success transfer to new form");
 		return "/user-form.jsp";
+	}
+	
+	
+	
+	
+		@RequestMapping(path = "/Hotel.Query",method = RequestMethod.POST)
+		public String query(@RequestParam("query")String query,Model m ,SessionStatus status,HotelServiceImpl daoimpl){
+			List<Hotel> finall = daoimpl.findAll();
+			m.addAttribute("Hotel", finall);
+			System.out.println("Help you find out all,Thank God!^^");
+			return "/user-list.jsp";
+		}
+		
+		
+		@RequestMapping(path = "/Hotel.Delete",method = RequestMethod.POST)
+		public String Delete(@RequestParam("DeleteId")int DeleteId,Model m ,SessionStatus status,HotelServiceImpl daoimpl){
+			daoimpl.delete(DeleteId);
+			System.out.println("Delte you want it !");
+			return "/user-list.jsp";
+		}
+		
+		
+		
+		
+		@RequestMapping(path = "/shoeEditForm",method = RequestMethod.POST)
+		public String Update(@RequestParam("UpdateId")int UpdateId,Model m ,SessionStatus status,HotelServiceImpl daoimpl){
+			Hotel editID = daoimpl.findById(UpdateId);
+			m.addAttribute("Hotel", editID);
+		System.out.println("This is success transfer to Edit form");
+		return "/user-form-edit.jsp";
+		}
+		
+//		@RequestMapping(path = "/shoeEditForm",method = RequestMethod.POST)
+//		public String Insert(@RequestParam("UpdateId")int UpdateId,Model m ,SessionStatus status,HotelServiceImpl daoimpl){
+//			Hotel editID = daoimpl.findById(UpdateId);
+//			m.addAttribute("Hotel", editID);
+//		System.out.println("This is success transfer to Edit form");
+//		return "/user-form-edit.jsp";
+//		}
 //		Map<String, String> errors =new HashMap<String,String>();
 //		m.addAttribute("errors", errors);  //=request.setAttribute("errors", errors);
 //	
@@ -51,4 +90,3 @@ public class SpringHotelController {
 		
 		
 	}
-}
