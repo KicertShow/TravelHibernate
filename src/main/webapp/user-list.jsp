@@ -42,22 +42,22 @@
 			<h3 class="text-center">Hotel Manager</h3>
 			<hr>
 			<div class="container text-left">
-			<button type="button" class="btn btn-sm btn-danger"  onclick="new1()"><i class="bi bi-person-plus-fill"></i>新增</button>
-				<!-- 
+<!-- 			<button type="button" class="btn btn-sm btn-danger"  onclick="new1()"><i class="bi bi-person-plus-fill"></i>新增</button> -->
+				
 				<form action="Hotel_Servlet" name="new" method="POST">
 					<input type ="hidden" value="new" name="action">
 					<input type ="submit" class="btn btn-success" 
 					value="new Hotel">
 				</form>
-				 -->
-		    <button type="button" class="btn btn-sm btn-danger"  onclick="query()"><i class="bi bi-search"></i>查詢</button>
-		    <!--  
+				
+<!-- 		    <button type="button" class="btn btn-sm btn-danger"  onclick="query()"><i class="bi bi-search"></i>查詢</button> -->
+		   
 				<form action="Hotel_Servlet" method="POST">
-					<input type="hidden" name="action" value="query">
+					<input type="hidden" name="action" value="">
 					<input type="submit"  class="btn btn-success"  
 					value="query">
 				</form>
-			-->
+			
 			</div>
 			<br>
 			<table class="table table-bordered" id="Research">
@@ -96,24 +96,24 @@
 							
 							
 							<td>
-							  <button  class="btn btn-sm btn-danger" type="button"  onclick="bom('${hotel.id}');" id="delete1" ><i class="bi bi-trash-fill"></i>刪除</button>
-							<!--  
-							<form action="Hotel_ServletHotel_Servlet" method="POST" name="delete">
+<%-- 							  <button  class="btn btn-sm btn-danger" type="button"  onclick="bom('${hotel.id}');" id="delete1" ><i class="bi bi-trash-fill"></i>刪除</button> --%>
+							 
+							<form action="Hotel_Servlet" method="POST" name="delete">
 								<input type="hidden" name="action" value="delete">
 								<input type="hidden" name="id" value="<c:out value='${hotel.id}' />">
 								<input type="submit" class="btn btn-sm btn-danger" value="刪除">
 							</form>
-							-->
+						
 							</td>
 							
 							<td>
-							<button  class="btn btn-success" type="button"  onclick="edit('${hotel.id}');" id="edit" ><i class="bi bi-credit-card-2-front"></i>編輯</button>
-							<!-- 
+<%-- 							<button  class="btn btn-success" type="button"  onclick="edit('${hotel.id}');" id="edit" ><i class="bi bi-credit-card-2-front"></i>編輯</button> --%>
+							 
 							<form action="Hotel_Servlet" method="POST" name="edit">
 							<input type="hidden" name="action" value="edit">
 							<input type="hidden" name="id" value="<c:out value='${hotel.id}' />">
 							<input type="submit" class="btn btn-success" value="修改">
-							 -->
+							
 							</form>
 							</td>
 							
@@ -134,57 +134,57 @@
 // $(document).ready( function () {
 //     $('#Research').DataTable();
 // } );
-function new1(){
-	 window.location.href ="<%=path%>/Hotel_Servlet?action=new"
-	}
-// 	this is can't code  "new" >>to new"
-function edit(id){
-	 window.location.href ="<%=path%>/Hotel_Servlet?action=edit&id="+id
-	}
-function query(){
-	 window.location.href ="<%=path%>/Hotel_Servlet?action="
-	}
+// function new1(){
+<%-- 	 window.location.href ="<%=path%>/Hotel_Servlet?action=new" --%>
+// 	}
+// // 	this is can't code  "new" >>to new"
+// function edit(id){
+<%-- 	 window.location.href ="<%=path%>/Hotel_Servlet?action=edit&id="+id --%>
+// 	}
+// function query(){
+<%-- 	 window.location.href ="<%=path%>/Hotel_Servlet?action=" --%>
+// 	}
 	
 
 
 
-function bom(id){
-	const swalWithBootstrapButtons = Swal.mixin({
-		  customClass: {
-		    confirmButton: 'btn btn-success',
-		    cancelButton: 'btn btn-danger'
-		  },
-		  buttonsStyling: false
-		})
+// function bom(id){
+// 	const swalWithBootstrapButtons = Swal.mixin({
+// 		  customClass: {
+// 		    confirmButton: 'btn btn-success',
+// 		    cancelButton: 'btn btn-danger'
+// 		  },
+// 		  buttonsStyling: false
+// 		})
 
-		swalWithBootstrapButtons.fire({
-		  title: 'Are you sure?',
-		  text: "You won't be able to revert this!",
-		  icon: 'warning',
-		  showCancelButton: true,
-		  confirmButtonText: 'Yes, delete it!',
-		  cancelButtonText: 'No, cancel!',
-		  reverseButtons: true
-		}).then((result) => {
-		  if (result.isConfirmed) {
-		    swalWithBootstrapButtons.fire(
-		      'Deleted!',
-		      'Your file has been deleted.',
-		      'success'
-		    )
-		    window.location.href ="<%=path%>/Hotel_Servlet?action=delete&id="+id
-		  } else if (
-		    /* Read more about handling dismissals below */
-		    result.dismiss === Swal.DismissReason.cancel
-		  ) {
-		    swalWithBootstrapButtons.fire(
-		      'Cancelled',
-		      'Your imaginary file is safe :)',
-		      'error'
-		    )
-		  }
-		})
-	}
+// 		swalWithBootstrapButtons.fire({
+// 		  title: 'Are you sure?',
+// 		  text: "You won't be able to revert this!",
+// 		  icon: 'warning',
+// 		  showCancelButton: true,
+// 		  confirmButtonText: 'Yes, delete it!',
+// 		  cancelButtonText: 'No, cancel!',
+// 		  reverseButtons: true
+// 		}).then((result) => {
+// 		  if (result.isConfirmed) {
+// 		    swalWithBootstrapButtons.fire(
+// 		      'Deleted!',
+// 		      'Your file has been deleted.',
+// 		      'success'
+// 		    )
+<%-- 		    window.location.href ="<%=path%>/Hotel_Servlet?action=delete&id="+id --%>
+// 		  } else if (
+// 		    /* Read more about handling dismissals below */
+// 		    result.dismiss === Swal.DismissReason.cancel
+// 		  ) {
+// 		    swalWithBootstrapButtons.fire(
+// 		      'Cancelled',
+// 		      'Your imaginary file is safe :)',
+// 		      'error'
+// 		    )
+// 		  }
+// 		})
+// 	}
 
 
 
