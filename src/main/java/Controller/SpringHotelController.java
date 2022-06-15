@@ -57,20 +57,53 @@ public class SpringHotelController {
 		
 		
 		@RequestMapping(path = "/shoeEditForm",method = RequestMethod.POST)
-		public String Update(@RequestParam("UpdateId")int UpdateId,Model m ,SessionStatus status,HotelServiceImpl daoimpl){
+		public String showEditForm(@RequestParam("UpdateId")int UpdateId,Model m ,SessionStatus status,HotelServiceImpl daoimpl){
 			Hotel editID = daoimpl.findById(UpdateId);
 			m.addAttribute("Hotel", editID);
 		System.out.println("This is success transfer to Edit form");
 		return "/user-form-edit.jsp";
 		}
 		
-//		@RequestMapping(path = "/shoeEditForm",method = RequestMethod.POST)
-//		public String Insert(@RequestParam("UpdateId")int UpdateId,Model m ,SessionStatus status,HotelServiceImpl daoimpl){
-//			Hotel editID = daoimpl.findById(UpdateId);
-//			m.addAttribute("Hotel", editID);
-//		System.out.println("This is success transfer to Edit form");
-//		return "/user-form-edit.jsp";
-//		}
+		@RequestMapping(path = "/Insert",method = RequestMethod.POST)
+		public String Insert(
+				@RequestParam("hotel_name")String hotel_name,
+				@RequestParam("price")Integer price,
+				@RequestParam("boss_name")String boss_name,
+				@RequestParam("phone")String phone,
+				@RequestParam("status")String status,
+				@RequestParam("roomtype")String roomtype,
+				Model m ,HotelServiceImpl daoimpl,Hotel hotel,HttpServletRequest request)throws ServletException,IOException,SQLException{
+			Part part = request.getPart("picture");
+			BufferedInputStream bis = new BufferedInputStream(part.getInputStream());
+			byte[] pic = new byte[bis.available()];
+			bis.read(pic);
+			
+			Hotel hotel2 = new Hotel(hotel_name, price, boss_name, phone, status, roomtype, pic);
+			daoimpl.save(hotel2);
+		System.out.println("Insert ");
+		return "/user-list.jsp";
+		}
+		
+		@RequestMapping(path = "/Update",method = RequestMethod.POST)
+		public String Update(
+				@RequestParam("hotel_name")String hotel_name,
+				@RequestParam("price")Integer price,
+				@RequestParam("boss_name")String boss_name,
+				@RequestParam("phone")String phone,
+				@RequestParam("status")String status,
+				@RequestParam("roomtype")String roomtype,
+				Model m ,HotelServiceImpl daoimpl,Hotel hotel,HttpServletRequest request)throws ServletException,IOException,SQLException{
+			Part part = request.getPart("picture");
+			BufferedInputStream bis = new BufferedInputStream(part.getInputStream());
+			byte[] pic = new byte[bis.available()];
+			bis.read(pic);
+			
+			Hotel hotel2 = new Hotel(hotel_name, price, boss_name, phone, status, roomtype, pic);
+			daoimpl.update(hotel2);
+		System.out.println("Update ");
+		return "/user-list.jsp";
+		}
+		
 //		Map<String, String> errors =new HashMap<String,String>();
 //		m.addAttribute("errors", errors);  //=request.setAttribute("errors", errors);
 //	
