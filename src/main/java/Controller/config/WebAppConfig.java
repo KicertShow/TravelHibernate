@@ -56,7 +56,7 @@ public class WebAppConfig implements WebMvcConfigurer {
 	@Bean
 	public InternalResourceViewResolver irViewResolver() {
 		InternalResourceViewResolver irve1 = new InternalResourceViewResolver();
-		irve1.setPrefix("/WEB-INF/");
+		irve1.setPrefix("/WEB-INF/pages/");
 		irve1.setSuffix(".jsp");
 		irve1.setOrder(6);
 		return irve1;
