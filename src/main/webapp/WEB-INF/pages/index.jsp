@@ -19,7 +19,7 @@
 </head>
 <body>
 	<%-- side Bar (side bar請記得include進來) --%>
-    <%@include file = "jspf/sidebar.jspf"%>
+     <%@include file = "/WEB-INF/resource/jspf/sidebar.jspf"%>
     
     <%-- main--%>
     <main id="right-panel" class="right-panel">

@@ -62,8 +62,8 @@
 				
 				
 			 
-					<form action="Hotel_Servlet" method="post" enctype="multipart/form-data">
-					<input type="hidden" name="action" value="update">
+					<form action="Update" method="POST" enctype="multipart/form-data">
+					<input type="hidden" name="Update" value="update">
 				
 				
 			

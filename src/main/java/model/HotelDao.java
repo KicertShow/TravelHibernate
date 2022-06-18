@@ -1,22 +1,27 @@
-package dao.dao.impl;
+package model;
 
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import ch04.ude.RecordNotFoundException;
-import dao.dao.HotelDao;
-import model.Hotel;
-import util.HibernateUtils;
 
-public class HotelServiceDao_Hibernate implements HotelDao{
+
+
+@Repository
+@Transactional
+public class HotelDao implements IinterFaceHotelDao{
 	
-	SessionFactory factory = HibernateUtils.getSessionFactory();
+	@Autowired
+	private SessionFactory sessionFactory;
 	
 	@Override
 	public Object save(Hotel hol) {
-		Session session = factory.getCurrentSession();
+		Session session = sessionFactory.openSession();
 		session.save(hol);
 		return hol;
 	}
@@ -24,7 +29,7 @@ public class HotelServiceDao_Hibernate implements HotelDao{
 	@Override
 	public Hotel findById(int id) {
 		Hotel hotel = null;
-		Session session = factory.getCurrentSession();
+		Session session = sessionFactory.openSession();
 		Integer ipk = Integer.valueOf(id);
 		hotel = session.get(Hotel.class, ipk);
 		return hotel;
@@ -37,13 +42,13 @@ public class HotelServiceDao_Hibernate implements HotelDao{
 
 	@Override
 	public void update(Hotel hol) {
-		Session session = factory.getCurrentSession();
+		Session session = sessionFactory.openSession();
 		session.update("Hotel",hol);
 	}
 
 	@Override
 	public void delete(int id) {
-		Session session = factory.getCurrentSession();
+		Session session = sessionFactory.openSession();
 		Hotel hotel= findById(id);
 		if (hotel ==null) {
 			throw new RecordNotFoundException
@@ -57,14 +62,15 @@ public class HotelServiceDao_Hibernate implements HotelDao{
 	public List<Hotel> findAll() {
 		String hql = "from Hotel order by id";
 		List<Hotel>	allHotels = null;
-		Session session = factory.getCurrentSession();
+		Session session = sessionFactory.openSession();
 		allHotels = session.createQuery(hql, Hotel.class).getResultList();
 		return allHotels;
 	}
 
 	@Override
 	public void close() {
-		factory.close();
+		Session session = sessionFactory.openSession();
+		session.close();
 	}
 	
 

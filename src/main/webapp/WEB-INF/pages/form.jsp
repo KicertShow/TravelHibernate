@@ -9,11 +9,12 @@
 
 <body>
 	<h1>This is practice Spring </h1>
-	<form action="SpringHotelController" method="get">
+	<form action="test" method="get">
 		<table>
 			<tr>
 				<td>Name</td>
 				<td><input type="text" name="userName"></td>
+				<td><input type="text" name="userpwd"></td>
 				<td>${errors.name}</td>
 			</tr>
 			<tr>

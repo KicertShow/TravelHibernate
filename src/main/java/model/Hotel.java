@@ -1,6 +1,5 @@
 package model;
 
-import java.net.Inet4Address;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

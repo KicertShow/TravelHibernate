@@ -1,9 +1,9 @@
-package dao.dao;
+package model;
 
 import java.util.List;
-import model.Hotel;
 
-public interface HotelDao {
+
+public interface IinterFaceHotelDao {
 	public Object save(Hotel hol);
 
 	public Hotel findById(int id);

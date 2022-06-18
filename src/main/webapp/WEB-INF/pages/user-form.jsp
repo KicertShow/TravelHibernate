@@ -2,25 +2,21 @@
 <%@page import="model.Hotel"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
 <title>User Management Application</title>
 <link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous">
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+	
 
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-	crossorigin="anonymous">
+	rel="stylesheet"/>
+	
 <script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-	crossorigin="anonymous"></script>
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"/></script>
 </head>
 <body>
 
@@ -49,26 +45,8 @@
 						Hotel hotel = (Hotel) request.getAttribute("Hotel");
 						out.print("Add New Hotel ");
 						%>
-						<!-- 
-						<c:if test="${hotel != null}">
-            			Edit Hotel   edit
-            		</c:if>
-						<c:if test="${hotel == null}">
-            			Add New Hotel insert
-            		</c:if>
-            		
-            		 -->
 					</h2>
 				</caption>
-				<form action="Insert" method="post"
-					enctype="multipart/form-data">
-					<input type="hidden" name="action" value="insert">
-					<!-- 
-				if (hotel != null) {
-					<input type="hidden" name="id"
-								value="<c:out value='${hotel.id}' />" />
-				 } 
-				 -->
 					<script>
 						function my_key(e) {
 							var key;
@@ -87,20 +65,11 @@
 							return reg.test(keychar);
 						}
 					</script>
-
-
-
+					
+				<form:form action="insert" method="post" enctype="multipart/form-data">
 					<fieldset class="form-group">
-						<input type="hidden" value="<c:out value='${hotel.id}' />"
-							class="form-control" name="id" placeholder="type something">
-					</fieldset>
-
-
-					<fieldset class="form-group">
-						<label>飯店名稱</label> <input type="text"
-							value="<c:out value='${hotel.hotel_name}' />"
-							class="form-control" name="hotel_name" placeholder=""
-							maxlength=50>
+						<label>飯店名稱</label> 
+						<input type="text"	class="form-control" name="hotel_name" placeholder=""maxlength=50>
 					</fieldset>
 
 					<fieldset class="form-group">
@@ -161,7 +130,7 @@
 					</fieldset>
 					<!-- -------------------------------------------------------------以下修改 -->
 					<button type="submit" class="btn btn-success">Save</button>
-				</form>
+				</form:form>
 
 			</div>
 		</div>

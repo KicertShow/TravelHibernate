@@ -18,7 +18,7 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
 </head>
 <body>
-  <%@include file = "jspf/sidebar.jspf"%>
+  <%@include file = "/WEB-INF/resource/jspf/sidebar.jspf"%>
 
 	<header>
 		<nav class="navbar navbar-expand-md navbar-dark"
