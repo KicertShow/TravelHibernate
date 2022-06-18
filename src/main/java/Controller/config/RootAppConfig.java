@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration   							 //  =  <context:annotation-config/>  <!-- 支援annotation效用 -->
-@ComponentScan(basePackages = "tw.leonchen")  // = <context:component-scan base-package="tw.leonchen"/> <!-- 去這個路徑掃描 -->
+@ComponentScan(basePackages = "Controller")  // = <context:component-scan base-package="tw.leonchen"/> <!-- 去這個路徑掃描 -->
 @EnableWebMvc 								 //<mvc:annotation-driven/>  <!-- 支援mvc annotation效用 -->
 @EnableTransactionManagement     			//  ==<tx:annotation-driven transaction-manager="transactionManager"/>
 											//<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">  <!-- 交易管理員 自動交易 -->
@@ -40,7 +40,7 @@ public class RootAppConfig {
 	public LocalSessionFactoryBean sessionFactory() throws IllegalArgumentException, NamingException {
 		LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
 		factoryBean.setDataSource(dataSource());
-		factoryBean.setPackagesToScan("tw.leonchen.model");
+		factoryBean.setPackagesToScan("model");
 		factoryBean.setHibernateProperties(addtionalProperties());
 		return factoryBean;
 	}

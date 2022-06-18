@@ -36,7 +36,7 @@ public class SpringHotelController {
 		public String ShowNewForm(@RequestParam("showNewForm")String showNewForm,Model m ,SessionStatus status,HotelService impl){
 		
 		System.out.println("This is success transfer to new form");
-		return "/user-form.jsp";
+		return "user-form";
 	}
 	
 	
@@ -47,7 +47,7 @@ public class SpringHotelController {
 			List<Hotel> finall = daoimpl.findAll();
 			m.addAttribute("Hotel", finall);
 			System.out.println("Help you find out all,Thank God!^^");
-			return "/user-list.jsp";
+			return "user-list";
 		}
 		
 		
@@ -55,7 +55,7 @@ public class SpringHotelController {
 		public String Delete(@RequestParam("DeleteId")int DeleteId,Model m ,SessionStatus status,HotelService daoimpl){
 			daoimpl.delete(DeleteId);
 			System.out.println("Delte you want it !");
-			return "/user-list.jsp";
+			return "user-list";
 		}
 		
 		
@@ -66,7 +66,7 @@ public class SpringHotelController {
 			Hotel editID = daoimpl.findById(UpdateId);
 			m.addAttribute("Hotel", editID);
 		System.out.println("This is success transfer to Edit form");
-		return "/user-form-edit.jsp";
+		return "user-form-edit";
 		}
 		
 		
@@ -90,7 +90,7 @@ public class SpringHotelController {
 			Hotel hotel2 = new Hotel(hotel_name, price, boss_name, phone, status, roomtype, pic);
 			daoimpl.save(hotel2);
 		System.out.println(hotel_name+price);
-		return "/user-list.jsp";
+		return "user-list";
 		}
 		
 		@RequestMapping(path = "/Update",method = RequestMethod.POST)
@@ -111,7 +111,7 @@ public class SpringHotelController {
 			Hotel hotel2 =  new Hotel(id, hotel_name, price, boss_name, phone, status, roomtype, pic);
 			daoimpl.update(hotel2);
 		System.out.println("Update ");
-		return "/user-list.jsp";
+		return "user-list";
 		}
 		
 //		Map<String, String> errors =new HashMap<String,String>();
