@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,7 +17,8 @@ import model.Hotel;
 public class HotelService implements InterFaceHotelService {
 	HotelDao hotelDao;
 	
-	
+	@Autowired
+	private SessionFactory sessionFactory;
 
 	@Override
 	public Object save(Hotel hol) {
@@ -56,9 +58,11 @@ public class HotelService implements InterFaceHotelService {
 
 	@Override
 	public List<Hotel> findAll() {
-		List<Hotel> fHotels =null;
-		fHotels = hotelDao.findAll();	
-		return fHotels;
+		String hql = "from Hotel order by id";
+		List<Hotel>	allHotels = null;
+		Session session = sessionFactory.openSession();
+		allHotels = session.createQuery(hql, Hotel.class).getResultList();
+		return allHotels;
 	}
 
 	@Override
