@@ -2,34 +2,52 @@ package backend.hotel.Controller;
 
 import java.util.HashMap;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+
+import backend.hotel.model.logging.Logging;
+import backend.hotel.model.logging.LoggingInterFaceService;
 @Controller
 public class AccountController {
-		@GetMapping("test")
+		@Autowired
+	private LoggingInterFaceService logService;
+	
+	
+		@GetMapping("loginsystemmain.controller")
 		public String AccountController01() {
-			return "account";
+		return "logging";
 		}
-		@PostMapping("accountAction")
-	public String  AccountController(
-			@RequestParam("username")String username,
-			@RequestParam("userpwd")String userpwd,Model m) {
-			HashMap<Object, Object> errors = new HashMap<>();
+		
+		
+		@PostMapping("checklogin.controller")
+		public String processAction(@RequestParam("userName")String user,@RequestParam("userPwd")String pwd,Model m) {
+			HashMap<String, String> errors = new HashMap<String, String>();
 			m.addAttribute("errors", errors);
 			
-			if (username ==null && username.length()==0 ) {
-				errors.put("msg", "必須輸入");
+			if (user ==null || user.length()==0) {
+				errors.put("user", "username is required");
+			}
+			if (pwd ==null || pwd.length()==0) {
+				errors.put("pwd", "pwd is required");
 			}
 			if (errors !=null && !errors.isEmpty()) {
-				return "account";
+				return "logging";
 			}
-			m.addAttribute("username", username);
-			m.addAttribute("userpwd", userpwd);
-			return "accountSuccess";
-	}
+			boolean result = logService.checklog(new Logging(user,pwd));
+			if (result) {
+				m.addAttribute("user", user);
+				m.addAttribute("pwd", pwd);
+				return "loginSuccess";
+			}
+			errors.put("msg", "please input correct username or password");
+			return "logging";
+		
+		}
 
 }

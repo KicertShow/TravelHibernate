@@ -1,4 +1,4 @@
-package backend.hotel.model;
+package backend.hotel.model.hotel;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import backend.hotel.model.Hotel;
+import backend.hotel.model.hotel.Hotel;
 
 
 @Service

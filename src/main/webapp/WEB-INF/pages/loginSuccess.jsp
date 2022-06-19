@@ -4,12 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>LoginSuccess</title>
 </head>
 <body>
-welcome 
-${username}<br/>
-你的密碼是:${userpwd}<br/>
-
+Success. ${user} ${pwd}<br/>
 </body>
 </html>

@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 
-import backend.hotel.model.Hotel;
-import backend.hotel.model.HotelService;
-import backend.hotel.model.InterFaceHotelService;
+import backend.hotel.model.hotel.Hotel;
+import backend.hotel.model.hotel.HotelService;
+import backend.hotel.model.hotel.InterFaceHotelService;
 
 @Controller
 public class SpringHotelController {

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import backend.hotel.model.JasonBean;
+import backend.hotel.model.hotel.JasonBean;
 
 
 @Controller
@@ -28,6 +28,21 @@ public class JasonTest {
 		lists.add(hBean3);
 		
 		return  lists;
+	}
+	
+	@GetMapping("Jason")
+	@ResponseBody
+	public ArrayList<JasonBean> TestJason(){
+		ArrayList<JasonBean> lists = new ArrayList<JasonBean>();
+		JasonBean J1 = new JasonBean();
+		J1.setBossname("KennyShow");
+		J1.setHotelname("AmercanHotel");
+		JasonBean J2 = 	new JasonBean();
+		J2.setBossname("kennyshow");
+		J2.setHotelname("hahha");
+		lists.add(J2);
+		lists.add(J1);
+		return lists;
 	}
 	
 	

@@ -57,7 +57,7 @@ public class RootAppConfig {
 		props.put("hibernate.dialect", org.hibernate.dialect.SQLServerDialect.class);
 		props.put("hibernate.show_sql", Boolean.TRUE);
 		props.put("hibernate.format_sql", Boolean.TRUE);
-//		props.put("hibernate.hbm2ddl.auto","update");  自動生成資料表
+		props.put("hibernate.hbm2ddl.auto","update");  //自動生成資料表
 		//props.put("hibernate.current_session_context_class", "thread");
 		return props;
 		

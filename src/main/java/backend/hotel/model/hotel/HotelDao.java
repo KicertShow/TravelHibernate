@@ -1,4 +1,4 @@
-package backend.hotel.model;
+package backend.hotel.model.hotel;
 
 import java.util.List;
 

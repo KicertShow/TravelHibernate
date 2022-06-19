@@ -1,4 +1,4 @@
-package backend.hotel.model;
+package backend.hotel.model.hotel;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,8 +15,12 @@ import org.springframework.stereotype.Component;
 public class JasonBean {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int     id;
+	@Column(name = "hotelname")
 	private String  hotelname;
+	@Column(name = "bossname")
 	private String  bossname;
+	
 	public JasonBean(String hotelname, String bossname) {
 		super();
 		this.hotelname = hotelname;

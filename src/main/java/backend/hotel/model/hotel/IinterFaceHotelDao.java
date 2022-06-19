@@ -1,9 +1,9 @@
-package backend.hotel.model;
+package backend.hotel.model.hotel;
 
 import java.util.List;
 
 
-public interface InterFaceHotelService {
+public interface IinterFaceHotelDao {
 	public Object save(Hotel hol);
 
 	public Hotel findById(int id);
