@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-final.${userName}
+welcome 
+${username}<br/>
+你的密碼是:${userpwd}<br/>
+
 </body>
 </html>

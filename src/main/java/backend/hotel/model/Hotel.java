@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Entity
 @Table(name = "Hotel")
-@Component
+@Component("Hotel")
 public class Hotel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
