@@ -1933,9 +1933,7 @@ header .form-inline {
 #morris-bar-chart {
   height: 285px; }
 
-.map, .vmap {
-  width: 100%;
-  height: 400px; }
+
 
 .btn-toolbar {
   float: left !important; }

@@ -1,6 +1,9 @@
 package backend.hotel.model.hotel;
 
 
+import java.sql.Blob;
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,8 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Entity
@@ -25,36 +30,11 @@ public class Hotel {
 	private String phone;
 	private String status;
 	private String roomtype;
-	@Column(columnDefinition = "varbinary(MAX)")
-	@Lob
-	private byte[] picture;
-	
-	public Hotel(Integer id, String hotel_name, Integer price, String boss_name, String phone, String status,
-			String roomtype, byte[] picture) {
-		super();
-		this.id = id;
-		this.hotel_name = hotel_name;
-		this.price = price;
-		this.boss_name = boss_name;
-		this.phone = phone;
-		this.status = status;
-		this.roomtype = roomtype;
-		this.picture = picture;
-	}
-	public Hotel( String hotel_name, Integer price, String boss_name, String phone, String status,
-			String roomtype, byte[] picture) {
-		super();
-		this.hotel_name = hotel_name;
-		this.price = price;
-		this.boss_name = boss_name;
-		this.phone = phone;
-		this.status = status;
-		this.roomtype = roomtype;
-		this.picture = picture;
-	}
-	public Hotel() {
-		super();
-	}
+	private  Blob image;   //之後接受照片的容器
+	private  String fileName; //接檔案名稱
+	private  Timestamp admissionTime; //街道檔案的那時候時間
+	@Transient
+	private  MultipartFile productImage;
 	public Integer getId() {
 		return id;
 	}
@@ -97,14 +77,31 @@ public class Hotel {
 	public void setRoomtype(String roomtype) {
 		this.roomtype = roomtype;
 	}
-	public byte[] getPicture() {
-		return picture;
+	public Blob getImage() {
+		return image;
 	}
-	public void setPicture(byte[] picture) {
-		this.picture = picture;
+	public void setImage(Blob image) {
+		this.image = image;
+	}
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	public Timestamp getAdmissionTime() {
+		return admissionTime;
+	}
+	public void setAdmissionTime(Timestamp admissionTime) {
+		this.admissionTime = admissionTime;
+	}
+	public MultipartFile getProductImage() {
+		return productImage;
+	}
+	public void setProductImage(MultipartFile productImage) {
+		this.productImage = productImage;
 	}
 	
-
 	
-
-}	
+	
+	}	

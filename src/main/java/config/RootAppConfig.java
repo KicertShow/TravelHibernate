@@ -73,5 +73,6 @@ public class RootAppConfig {
 			txMgr.setSessionFactory(sessionFactory);
 			return txMgr;
 		}
+	
 
 }

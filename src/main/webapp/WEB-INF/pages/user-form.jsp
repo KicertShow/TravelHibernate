@@ -3,18 +3,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
 <title>User Management Application</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
-	
-
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-	rel="stylesheet"/>
-	
+	rel="stylesheet"/>	
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"/></script>
 </head>
@@ -47,7 +44,70 @@
 						%>
 					</h2>
 				</caption>
-					<script>
+				
+					
+				<form:form  modelAttribute="hotel" method="POST"  enctype="multipart/form-data">
+				
+				
+					<fieldset class="form-group">
+						<form:label path="hotel_name">飯店名稱</form:label>
+						 <form:input path="hotel_name" placeholder="" maxlength="50" class="form-control"/>
+					</fieldset>
+				
+					<fieldset class="form-group">
+						<form:label path="price">價格</form:label>
+						<form:input path="price"  placeholder="" maxlength="50" class="form-control" onkeypress="return my_key(event)" />
+					</fieldset>
+					
+					
+
+					<fieldset class="form-group">
+						<form:label path="boss_name">業主名稱</form:label>
+						 <form:input path="boss_name" placeholder="" maxlength="50" class="form-control"/>
+					</fieldset>
+
+					<fieldset class="form-group">
+						<form:label path="phone">電話</form:label>
+						 <form:input path="phone" placeholder="" maxlength="50" class="form-control" onkeypress="return my_key(event)"/>
+					</fieldset>
+					
+					<fieldset class="form-group">
+					<form:label path="productImage">照片</form:label>
+						 <form:input path="productImage" type='file'/>
+					</fieldset>
+				
+					<td>狀態</td>
+					<fieldset class="form-group">
+					
+					  <form:select path="status" class="form-select" aria-label="Default select example">
+						<form:option value="營業中">營業中</form:option>
+						<form:option value="未營業">未業中</form:option>
+	   	  		
+	   	  			  </form:select>
+					</fieldset>	
+					<!-- -------------------------------------------------------------以下修改 -->
+
+
+
+					<td>房型</td>
+					<fieldset class="form-group">
+					
+					  <form:select path="roomtype" class="form-select" aria-label="Default select example" >
+						<form:option value="營業中">單人房</form:option>
+						<form:option value="未營業">雙人房</form:option>
+	   	  		
+	   	  			  </form:select>
+	   	  			 </fieldset>	
+					<!-- -------------------------------------------------------------以下修改 -->
+					<button type="submit" class="btn btn-success">Save</button>
+				
+				</form:form>
+
+			</div>
+		</div>
+	</div>
+</body>
+	<script>
 						function my_key(e) {
 							var key;
 							if (window.event) {
@@ -65,75 +125,4 @@
 							return reg.test(keychar);
 						}
 					</script>
-					
-				<form:form action="insert" method="post" enctype="multipart/form-data">
-					<fieldset class="form-group">
-						<label>飯店名稱</label> 
-						<input type="text"	class="form-control" name="hotel_name" placeholder=""maxlength=50>
-					</fieldset>
-
-					<fieldset class="form-group">
-						<label>價格</label> <input type="text"
-							value="<c:out value='${hotel.price}' />" class="form-control"
-							name="price" onkeypress="return my_key(event)">
-					</fieldset>
-
-					<fieldset class="form-group">
-						<label>業主名稱</label> <input type="text"
-							value="<c:out value='${hotel.boss_name}' />" class="form-control"
-							name="boss_name">
-					</fieldset>
-
-					<fieldset class="form-group">
-						<label>電話</label> <input type="text"
-							value="<c:out value='${hotel.phone}' />" class="form-control"
-							name="phone" onkeypress="return my_key(event)">
-					</fieldset>
-					<fieldset class="form-group">
-						<label>照片</label> <input type="file" value="" class="form-control"
-							name="picture">
-					</fieldset>
-					<!-- 
-				<fieldset class="form-group">
-					<label>status</label> <input type="text"
-						value="<c:out value='${hotel.status}' />" class="form-control"
-						name="status">
-				</fieldset>
-				 -->
-					<!-- 
-				<fieldset class="form-group">
-					<label>roomtype</label> <input type="text"
-						value="<c:out value='${hotel.roomtype}'/>" class="form-control"
-						name="roomtype">
-				</fieldset>
-				 -->
-					<!-- -------------------------------------------------------------以下修改 -->
-					<label>狀態</label>
-					<fieldset class="form-group">
-						<select class="form-select" aria-label="Default select example"
-							name="status">
-							<option value="營業中">營業中</option>
-							<option value="未營業">未營業</option>
-						</select>
-					</fieldset>
-					<!-- -------------------------------------------------------------以下修改 -->
-
-
-
-					<label>房型選擇</label>
-					<fieldset class="form-group">
-						<select class="form-select" aria-label="Default select example"
-							name="roomtype">
-							<option value="單人房">單人房</option>
-							<option value="雙人房">雙人房</option>
-						</select>
-					</fieldset>
-					<!-- -------------------------------------------------------------以下修改 -->
-					<button type="submit" class="btn btn-success">Save</button>
-				</form:form>
-
-			</div>
-		</div>
-	</div>
-</body>
 </html>

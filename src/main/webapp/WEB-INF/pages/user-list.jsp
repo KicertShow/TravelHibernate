@@ -18,13 +18,12 @@
 </head>
 <body>
   <%@include file = "/WEB-INF/resource/jspf/sidebar.jspf"%>
-
+	<main id="right-panel" class="right-panel" style="background-color:white;">
 	<header>
 		<nav class="navbar navbar-expand-md navbar-dark"
 			style="background-color: tomato">
 			<div>
-				<a href="https://www.google.com." class="navbar-brand"> google
-					 </a>
+			<a href="<c:url value='/hotel'/>" class="navbar-brand" >回前頁</a>
 			</div>
 
 			<ul class="navbar-nav">
@@ -43,7 +42,7 @@
 			<div class="container text-left">
 <!-- 			<button type="button" class="btn btn-sm btn-danger"  onclick="new1()"><i class="bi bi-person-plus-fill"></i>新增</button> -->
 				
-				<form action="ShowNewForm" name="new" method="POST">
+				<form action="ShowNewForm" name="new" method="GET">
 					<input type ="hidden" value="new" name="showNewForm">
 					<input type ="submit" class="btn btn-success" 
 					value="new Hotel">
@@ -85,13 +84,13 @@
 							<td><c:out value="${hotel.id}" /></td>
 							<td><c:out value="${hotel.hotel_name}" /></td>
 							<td><c:out value="${hotel.price}" /></td>
-							<td><c:out value="${hotel.boss_name}" /></td>
 							<td><c:out value="${hotel.phone}" /></td>
+							<td><c:out value="${hotel.boss_name}" /></td>
 							<td><c:out value="${hotel.status}" /></td>
 							<td><c:out value="${hotel.roomtype}" /></td>
+							<td><img width='60' height='72' src="<c:url value='/crm/picture/${hotel.id}' />" /></td>				
 							
-							
-							<td><img src="/travelWebFinalVersion/Picture?id=${hotel.id}" width="100px"></td>
+<%-- 							<td><img src="/travelWebFinalVersion/Picture?id=${hotel.id}" width="100px"></td> --%>
 							
 							
 							<td>
@@ -125,6 +124,7 @@
 			</table>
 		</div>
 	</div>
+	</main>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>	
 <script type="text/javascript" src="//cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
