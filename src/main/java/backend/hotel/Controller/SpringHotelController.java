@@ -207,18 +207,23 @@ public class SpringHotelController {
 		}
 		
 		
+		 @PostMapping("/saveHotel")
+		   public String saveHotel(@ModelAttribute("hotel") Hotel hotels) {
+			 hotelService.save(hotels);
+		    return "user-list";
+		    }
 		
-		
-		@RequestMapping(path = "/shoeEditForm",method = RequestMethod.POST)
-		public String showEditForm(@RequestParam("UpdateId")int UpdateId,Model m ,SessionStatus status){
+		@RequestMapping(path = "/showEditForm",method = RequestMethod.GET)
+		public String showEditForm(@RequestParam("UpdateId")Integer UpdateId,Model m ){
 			Hotel editID = hotelService.findById(UpdateId);
-			m.addAttribute("Hotel", editID);
+			m.addAttribute("hotel", editID);
+			
 		System.out.println("This is success transfer to Edit form");
 		return "user-form-edit";
 		}
 		
 		
-		
+	
 		
 		
 		

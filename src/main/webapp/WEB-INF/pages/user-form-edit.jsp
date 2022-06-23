@@ -2,7 +2,6 @@
 <%@page import="backend.hotel.model.hotel.Hotel"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<% Hotel hotel = (Hotel)request.getAttribute("Hotel"); %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
@@ -38,16 +37,14 @@
 			<div class="card-body">
 
 				<caption>
-					<h2> EDIT</h2>
+					<h2>
+						EDIT ${hotel.id}<br>
+					</h2>
 				</caption>
 				
 					
-				<form:form  modelAttribute="hotel" method="POST"  enctype="multipart/form-data">
-					
-					<fieldset class="form-group">
-						<form:label path="ID">ID</form:label>
-						<form:input path="ID" value="<%=hotel.getId()%>" readonly  placeholder="" maxlength="50" class="form-control"/>
-					</fieldset>	
+				<form:form  modelAttribute="hotel" method="POST"  enctype="multipart/form-data" >
+				
 				
 					<fieldset class="form-group">
 						<form:label path="hotel_name">飯店名稱</form:label>
