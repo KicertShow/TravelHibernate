@@ -6,13 +6,13 @@ import java.util.List;
 public interface InterFaceHotelService {
 	public Object save(Hotel hol);
 
-	public Hotel findById(int id);
+	public Hotel findById(Integer id);
 
 	public boolean existsById(String id);
 
 	public void update(Hotel hol);
 
-	public void delete(int id);
+	public void delete(Integer id);
 
 	public List<Hotel> findAll();
 

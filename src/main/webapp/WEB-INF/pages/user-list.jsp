@@ -96,7 +96,7 @@
 							<td>
 <%-- 							  <button  class="btn btn-sm btn-danger" type="button"  onclick="bom('${hotel.id}');" id="delete1" ><i class="bi bi-trash-fill"></i>刪除</button> --%>
 							 
-							<form action="Hotel.Delete" method="POST" name="delete">
+							<form action="Hotel.Delete" method="GET" name="delete">
 <!-- 							<input type="hidden" name="action" value="delete"> -->
 								<input type="hidden" name="DeleteId" value="<c:out value='${hotel.id}' />">
 								<input type="submit" class="btn btn-sm btn-danger" value="刪除">

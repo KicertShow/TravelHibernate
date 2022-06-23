@@ -2,17 +2,16 @@ package backend.hotel.model.hotel;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import backend.hotel.model.hotel.Hotel;
+
 
 
 @Service
+@Transactional
 public class HotelService implements InterFaceHotelService {
 	
 	@Autowired
@@ -28,7 +27,7 @@ public class HotelService implements InterFaceHotelService {
 	}
 
 	@Override
-	public Hotel findById(int id) {
+	public Hotel findById(Integer id) {
 		Hotel mHotel =null;
 			mHotel =IinterFaceHotelDao.findById(id);
 			return mHotel;
@@ -48,7 +47,7 @@ public class HotelService implements InterFaceHotelService {
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(Integer id) {
 	
 		IinterFaceHotelDao.delete(id);
 		

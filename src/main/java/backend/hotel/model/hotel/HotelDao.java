@@ -6,21 +6,23 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import backend.hotel.error.RecordNotFoundException;
 
 
 
 @Repository
-@Transactional
 public class HotelDao implements IinterFaceHotelDao{
 	
-	@Autowired
-	SessionFactory sessionFactory;
-	@Autowired
-	Hotel hotel;
 	
+	SessionFactory sessionFactory;
+	Hotel hotel;
+	@Autowired
+	public HotelDao(SessionFactory sessionFactory, Hotel hotel) {
+		super();
+		this.sessionFactory = sessionFactory;
+		this.hotel = hotel;
+	}
+
 	@Override
 	public Object save(Hotel hol) {
 		Session session = sessionFactory.openSession();
@@ -29,12 +31,10 @@ public class HotelDao implements IinterFaceHotelDao{
 	}
 
 	@Override
-	public Hotel findById(int id) {
-		Hotel hotel = null;
-		Session session = sessionFactory.openSession();
-		Integer ipk = Integer.valueOf(id);
-		hotel = session.get(Hotel.class, ipk);
-		return hotel;
+	public Hotel findById(Integer id) {
+		Session session = sessionFactory.getCurrentSession();
+		Hotel hotelBean = session.get(Hotel.class, id);
+		return hotelBean;
 	}
 
 	@Override
@@ -49,15 +49,10 @@ public class HotelDao implements IinterFaceHotelDao{
 	}
 
 	@Override
-	public void delete(int id) {
-		Session session = sessionFactory.openSession();
-		Hotel hotel= findById(id);
-		if (hotel ==null) {
-			throw new RecordNotFoundException
-				("要刪除紀錄不存在: 主鑑值為 :"+id);
-		}else {
-			session.delete(hotel);
-		}
+	public void delete(Integer id) {
+		Session session = sessionFactory.getCurrentSession();
+		Hotel hotelBean = session.byId(Hotel.class).load(id);
+		session.delete(hotelBean);
 	}
 
 	@Override

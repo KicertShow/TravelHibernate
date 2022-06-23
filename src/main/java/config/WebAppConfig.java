@@ -7,6 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
@@ -28,7 +29,7 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 @ComponentScan(basePackages = "backend.hotel")
 @EnableWebMvc
 @PropertySource("classpath:database.properties")
-
+@EnableTransactionManagement  
 //    /* 上面三個等於下面三個設定
 //<context:annotation-config/>
 //<context:component-scan base-package="tw.leonchen"/>

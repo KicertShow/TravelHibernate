@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -42,14 +41,10 @@ import backend.hotel.model.hotel.InterFaceHotelService;
 @Controller
 public class SpringHotelController {
 	
-	
-	InterFaceHotelService daoimpl;
-	ServletContext context;
 	@Autowired
-	public SpringHotelController(InterFaceHotelService daoimpl, ServletContext context) {
-		this.daoimpl = daoimpl;
-		this.context = context;
-	}
+	InterFaceHotelService hotelService;
+	ServletContext context;
+	
 
 
 
@@ -95,7 +90,7 @@ public class SpringHotelController {
 		hotels.setAdmissionTime(adminTime);
 		
 		try {
-			daoimpl.save(hotels);
+			hotelService.save(hotels);
 		} catch (org.hibernate.exception.ConstraintViolationException e) {
 			result.rejectValue("account", "", "帳號已存在，請重新輸入");
 			return "user-form";
@@ -123,7 +118,7 @@ public class SpringHotelController {
 
 		@RequestMapping(path = "/Hotel.Query",method = RequestMethod.POST)
 		public String query(@RequestParam("query")String query,Model m ,SessionStatus status){
-			m.addAttribute("Hotel", daoimpl.findAll());
+			m.addAttribute("Hotel", hotelService.findAll());
 			System.out.println("Help you find out all,Thank God!^^");
 			return "user-list";
 		}
@@ -136,7 +131,7 @@ public class SpringHotelController {
 			HttpHeaders headers = new HttpHeaders();
 			headers.setCacheControl(CacheControl.noCache().getHeaderValue());
 
-			Hotel hotel = daoimpl.findById(id);
+			Hotel hotel = hotelService.findById(id);
 			if (hotel == null) {
 				return new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND);
 			}
@@ -202,10 +197,12 @@ public class SpringHotelController {
 
 		}
 		
-		@RequestMapping(path = "/Hotel.Delete",method = RequestMethod.POST)
-		public String Delete(@RequestParam("DeleteId")int DeleteId,Model m ,SessionStatus status ){
-			daoimpl.delete(DeleteId);
-			System.out.println("Delte you want it !");
+		@RequestMapping(path = "/Hotel.Delete",method = RequestMethod.GET)
+		public String Delete(@RequestParam("DeleteId")Integer DeleteId,Model m ,SessionStatus status ){
+			hotelService.delete(DeleteId);
+			for (int i = 0; i < 5; i++) {
+				System.out.println("Delte you want it !"+DeleteId);				
+			}
 			return "user-list";
 		}
 		
@@ -214,7 +211,7 @@ public class SpringHotelController {
 		
 		@RequestMapping(path = "/shoeEditForm",method = RequestMethod.POST)
 		public String showEditForm(@RequestParam("UpdateId")int UpdateId,Model m ,SessionStatus status){
-			Hotel editID = daoimpl.findById(UpdateId);
+			Hotel editID = hotelService.findById(UpdateId);
 			m.addAttribute("Hotel", editID);
 		System.out.println("This is success transfer to Edit form");
 		return "user-form-edit";
