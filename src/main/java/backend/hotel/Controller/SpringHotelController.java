@@ -5,14 +5,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import javax.sql.rowset.serial.SerialBlob;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +30,6 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import backend.hotel.model.hotel.Hotel;
-import backend.hotel.model.hotel.HotelService;
 import backend.hotel.model.hotel.InterFaceHotelService;
 
 @Controller
@@ -43,6 +37,7 @@ public class SpringHotelController {
 	
 	@Autowired
 	InterFaceHotelService hotelService;
+	@Autowired
 	ServletContext context;
 	
 
@@ -146,10 +141,27 @@ public class SpringHotelController {
 				}
 			}
 			Blob blob = hotel.getImage();
-			if (blob != null) {
-				body = blobToByteArray(blob);
+			
+			try {
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				InputStream is = blob.getBinaryStream();
+				byte[] b = new byte[81920];
+				int len = 0;
+				while ((len = is.read(b)) != -1) {
+					baos.write(b, 0, len);
+				}
+				headers.setContentType(mediaType);
+				headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+				re = new ResponseEntity<byte[]>(baos.toByteArray(), headers, HttpStatus.OK);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return re;
+			
+//			if (blob != null) {
+//				body = blobToByteArray(blob);
 //			} else {
-				String path = null;
+//				String path = null;
 //				if (hotel.getGender() == null || hotel.getGender().length() == 0) {
 //					path = noImageMale;
 //				} else if (hotel.getGender().equals("M")) {
@@ -158,44 +170,44 @@ public class SpringHotelController {
 //					path = noImageFemale;
 //					;
 //				}
-				body = fileToByteArray(path);
-			}
-			re = new ResponseEntity<byte[]>(body, headers, HttpStatus.OK);
-
-			return re;
+//				body = fileToByteArray(path);
+//			}
+//			re = new ResponseEntity<byte[]>(body, headers, HttpStatus.OK);
+//
+//			return re;
 		}
 		
-		private byte[] fileToByteArray(String path) {
-			byte[] result = null;
-			try (InputStream is = context.getResourceAsStream(path);
-					ByteArrayOutputStream baos = new ByteArrayOutputStream();) {
-				byte[] b = new byte[819200];
-				int len = 0;
-				while ((len = is.read(b)) != -1) {
-					baos.write(b, 0, len);
-				}
-				result = baos.toByteArray();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return result;
-		}
+//		private byte[] fileToByteArray(String path) {
+//			byte[] result = null;
+//			try (InputStream is = context.getResourceAsStream(path);
+//					ByteArrayOutputStream baos = new ByteArrayOutputStream();) {
+//				byte[] b = new byte[819200];
+//				int len = 0;
+//				while ((len = is.read(b)) != -1) {
+//					baos.write(b, 0, len);
+//				}
+//				result = baos.toByteArray();
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//			return result;
+//		}
 		
-		public byte[] blobToByteArray(Blob blob) {
-			byte[] result = null;
-			try (InputStream is = blob.getBinaryStream(); ByteArrayOutputStream baos = new ByteArrayOutputStream();) {
-				byte[] b = new byte[819200];
-				int len = 0;
-				while ((len = is.read(b)) != -1) {
-					baos.write(b, 0, len);
-				}
-				result = baos.toByteArray();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return result;
-
-		}
+//		public byte[] blobToByteArray(Blob blob) {
+//			byte[] result = null;
+//			try (InputStream is = blob.getBinaryStream(); ByteArrayOutputStream baos = new ByteArrayOutputStream();) {
+//				byte[] b = new byte[819200];
+//				int len = 0;
+//				while ((len = is.read(b)) != -1) {
+//					baos.write(b, 0, len);
+//				}
+//				result = baos.toByteArray();
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//			return result;
+//
+//		}
 		
 		@RequestMapping(path = "/Hotel.Delete",method = RequestMethod.GET)
 		public String Delete(@RequestParam("DeleteId")Integer DeleteId,Model m ,SessionStatus status ){
