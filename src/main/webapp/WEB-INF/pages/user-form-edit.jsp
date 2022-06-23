@@ -44,8 +44,9 @@
 				
 					
 				<form:form  modelAttribute="hotel" method="POST"  enctype="multipart/form-data" >
-				
-				
+					<form:label path="id">ID</form:label>
+					 <form:input path="id" placeholder="" maxlength="50" class="form-control"/>
+					 
 					<fieldset class="form-group">
 						<form:label path="hotel_name">飯店名稱</form:label>
 						 <form:input path="hotel_name" placeholder="" maxlength="50" class="form-control"/>

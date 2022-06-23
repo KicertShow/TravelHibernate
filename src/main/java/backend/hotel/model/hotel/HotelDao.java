@@ -44,7 +44,7 @@ public class HotelDao implements IinterFaceHotelDao{
 
 	@Override
 	public void update(Hotel hol) {
-		Session session = sessionFactory.openSession();
+		Session session = sessionFactory.getCurrentSession();
 		session.update("Hotel",hol);
 	}
 

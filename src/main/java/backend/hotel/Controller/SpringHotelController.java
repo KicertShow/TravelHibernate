@@ -227,42 +227,56 @@ public class SpringHotelController {
 		
 		
 		
-		@RequestMapping(path = "/Update",method = RequestMethod.POST)
+		@RequestMapping(path = "/showEditForm",method = RequestMethod.POST)
 		public String Update(
-				@RequestParam(name = "id")Integer id,
-				@RequestParam(name = "hotel_name")String hotel_name,
-				@RequestParam(name = "price")Integer price,
-				@RequestParam(name ="boss_name")String boss_name,
-				@RequestParam(name ="phone")String phone,
-				@RequestParam(name ="status")String status,
-				@RequestParam(name ="roomtype")String roomtype,
-				Model m ,HotelService daoimpl,Hotel hotel,HttpServletRequest request,HttpServletResponse response)throws ServletException,IOException,SQLException{
-			Part part = request.getPart("picture");
-			BufferedInputStream bis = new BufferedInputStream(part.getInputStream());
-			byte[] pic = new byte[bis.available()];
-			bis.read(pic);
-			
-//			Hotel hotel2 =  new Hotel(id, hotel_name, price, boss_name, phone, status, roomtype, pic);
-//			daoimpl.update(hotel2);
-		System.out.println("Update ");
-		return "user-list";
+				@ModelAttribute("hotel")Hotel hotels,
+				BindingResult result,Model model) {
+			System.out.println("準備新增接收資料了");
+			Timestamp adminTime = new Timestamp(System.currentTimeMillis());
+			hotels.setAdmissionTime(adminTime);
+
+			MultipartFile picture = hotels.getProductImage();
+
+			if (picture.getSize() == 0) {
+				// 表示使用者並未挑選圖片
+//				Member original = memberService.get(id);
+//				member.setImage(original.getImage());
+			} else {
+				String originalFilename = picture.getOriginalFilename();
+				if (originalFilename.length() > 0 && originalFilename.lastIndexOf(".") > -1) {
+					hotels.setFileName(originalFilename);
+				}
+
+				// 建立Blob物件
+				if (picture != null && !picture.isEmpty()) {
+					try {
+						byte[] b = picture.getBytes();
+						Blob blob = new SerialBlob(b);
+						hotels.setImage(blob);
+					} catch (Exception e) {
+						e.printStackTrace();
+						throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
+					}
+				}
+			}
+			hotelService.update(hotels);
+			return "user-list";
 		}
 		
-//		Map<String, String> errors =new HashMap<String,String>();
-//		m.addAttribute("errors", errors);  //=request.setAttribute("errors", errors);
-//	
-//		if (userName==null || userName.length()==0) {
-//			errors.put("name", "name is required");
-//		}
-//	
-//		if (errors !=null && !errors.isEmpty()) {
-////		return new  ModelAndView("/form.jsp");
-//			return "/form.jsp";
-//		}
-//		m.addAttribute("userName", userName);
-//			return "/final.jsp";
-//			
-//		}
+//			// 將上傳的檔案移到指定的資料夾, 目前註解此功能
+//			try {
+//				File imageFolder = new File(rootDirectory, "images");
+//				if (!imageFolder.exists())
+//					imageFolder.mkdirs();
+//				File file = new File(imageFolder, "MemberImage_" + member.getId() + ext);
+//				productImage.transferTo(file);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
+//			}
+		
+		
+//		
 		
 		
 		
