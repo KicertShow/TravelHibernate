@@ -1,8 +1,6 @@
 package backend.hotel.Controller;
 
-import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Timestamp;
@@ -45,7 +43,9 @@ public class SpringHotelController {
 
 
 	@GetMapping("/hotel")
-		public  String Index() {
+		public  String Index(Model m) {
+		m.addAttribute("Hotel", hotelService.findAll());
+		System.out.println("Help you find out all,Thank God!^^");
 			return "user-list";
 		}
 	
@@ -111,12 +111,7 @@ public class SpringHotelController {
 	
 	
 
-		@RequestMapping(path = "/Hotel.Query",method = RequestMethod.POST)
-		public String query(@RequestParam("query")String query,Model m ,SessionStatus status){
-			m.addAttribute("Hotel", hotelService.findAll());
-			System.out.println("Help you find out all,Thank God!^^");
-			return "user-list";
-		}
+		
 		//取照片
 		@GetMapping("/crm/picture/{id}")
 		public ResponseEntity<byte[]> getPicture(@PathVariable("id") Integer id) {

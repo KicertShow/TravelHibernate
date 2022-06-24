@@ -30,7 +30,7 @@ String path = request.getContextPath();
 			<nav class="navbar navbar-expand-md navbar-dark"
 				style="background-color: tomato">
 				<div>
-					<a href="<c:url value='/hotel'/>" class="navbar-brand">回前頁</a>
+					<a href="<c:url value='/'/>" class="navbar-brand">回前頁</a>
 				</div>
 
 				<ul class="navbar-nav">
@@ -56,10 +56,7 @@ String path = request.getContextPath();
 
 					<!-- 		    <button type="button" class="btn btn-sm btn-danger"  onclick="query()"><i class="bi bi-search"></i>查詢</button> -->
 
-					<form action="Hotel.Query" method="POST">
-						<input type="hidden" name="query" value="query"> <input
-							type="submit" class="btn btn-success" value="query">
-					</form>
+					
 
 				</div>
 				<br>
