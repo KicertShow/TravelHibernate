@@ -28,7 +28,6 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 @Configuration
 @ComponentScan(basePackages = "backend.hotel")
 @EnableWebMvc
-@PropertySource("classpath:database.properties")
 @EnableTransactionManagement  
 //    /* 上面三個等於下面三個設定
 //<context:annotation-config/>
