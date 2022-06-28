@@ -102,6 +102,48 @@ public class SpringHotelController {
 	
 
 		
+		//取照片
+		@GetMapping("/crm/picture/{id}")
+		public ResponseEntity<byte[]> getPicture(@PathVariable("id") Integer id) {
+			byte[] body = null;
+			ResponseEntity<byte[]> re = null;
+			MediaType mediaType = null;
+			HttpHeaders headers = new HttpHeaders();
+			headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+
+			Hotel hotel = hotelService.findById(id);
+			if (hotel == null) {
+				return new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND);
+			}
+			
+			String filename = hotel.getFileName();
+			if (filename != null) {
+				if (filename.toLowerCase().endsWith("jfif")) {
+					mediaType = MediaType.valueOf(context.getMimeType("dummy.jpeg"));
+				} else {
+					mediaType = MediaType.valueOf(context.getMimeType(filename));
+					headers.setContentType(mediaType);
+				}
+			}
+			Blob blob = hotel.getImage();
+			
+			try {
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				InputStream is = blob.getBinaryStream();
+				byte[] b = new byte[81920];
+				int len = 0;
+				while ((len = is.read(b)) != -1) {
+					baos.write(b, 0, len);
+				}
+				headers.setContentType(mediaType);
+				headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+				re = new ResponseEntity<byte[]>(baos.toByteArray(), headers, HttpStatus.OK);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return re;
+		}
+		
 		
 			
 		
@@ -164,47 +206,7 @@ public class SpringHotelController {
 			return "redirect:/hotel";
 		}
 		
-		//取照片
-				@GetMapping("/crm/picture/{id}")
-				public ResponseEntity<byte[]> getPicture(@PathVariable("id") Integer id) {
-					byte[] body = null;
-					ResponseEntity<byte[]> re = null;
-					MediaType mediaType = null;
-					HttpHeaders headers = new HttpHeaders();
-					headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-
-					Hotel hotel = hotelService.findById(id);
-					if (hotel == null) {
-						return new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND);
-					}
-					
-					String filename = hotel.getFileName();
-					if (filename != null) {
-						if (filename.toLowerCase().endsWith("jfif")) {
-							mediaType = MediaType.valueOf(context.getMimeType("dummy.jpeg"));
-						} else {
-							mediaType = MediaType.valueOf(context.getMimeType(filename));
-							headers.setContentType(mediaType);
-						}
-					}
-					Blob blob = hotel.getImage();
-					
-					try {
-						ByteArrayOutputStream baos = new ByteArrayOutputStream();
-						InputStream is = blob.getBinaryStream();
-						byte[] b = new byte[81920];
-						int len = 0;
-						while ((len = is.read(b)) != -1) {
-							baos.write(b, 0, len);
-						}
-						headers.setContentType(mediaType);
-						headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-						re = new ResponseEntity<byte[]>(baos.toByteArray(), headers, HttpStatus.OK);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					return re;
-				}
+		
 		
 		
 		
